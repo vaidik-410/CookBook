@@ -5,6 +5,7 @@ import Home from './Components/home.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Contact from './Components/contact.jsx';
 import RecipeDetails from './Components/recipedetails.jsx';
+import EditRecipe from "./Components/editRecipe.jsx"
 import axios from 'axios';
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
             <Route path='/login' element={<Loginpage/>}></Route>
             <Route path='/contact' element={<Contact/>}></Route>
             <Route path="/recipe/:id" element={<RecipeDetails />} />
+            <Route path="/recipes/:id" element={<RecipeDetails />} />
+            <Route path="/recipes/:id/edit" element={<EditRecipe />} />
           </Routes>
       </BrowserRouter>
     </>
