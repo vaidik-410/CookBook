@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 
 const EditRecipe = () => {
   const { id } = useParams();
@@ -45,22 +46,13 @@ const EditRecipe = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await fetch(`http://localhost:3000/recipes/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        // json-server expects whole object on PUT
-        body: JSON.stringify(recipe),
-      });
-
-      if (!res.ok) throw new Error('Failed to update recipe');
-
+      await axios.put(`http://localhost:3000/recipes/${id}`, recipe);
       navigate(`/recipes/${id}`);
     } catch (err) {
       console.error(err);
-      alert('Failed to update recipe');
+      alert("Failed to update recipe");
     }
   };
 
@@ -69,9 +61,7 @@ const EditRecipe = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6">
-      <Link to={`/recipes/${id}`} className="text-black mb-4 inline-block">
-        Back to details
-      </Link>
+      <Link to={`/recipes/${id}`} className="text-black mb-4 inline-block">Back to details</Link>
       <h1 className="text-2xl font-bold mb-4">Edit Recipe</h1>
 
       <form onSubmit={handleSubmit} className="space-y-4">

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 const Recipedetails = () => {
   const { id } = useParams();
@@ -22,13 +23,8 @@ const Recipedetails = () => {
     if (!sure) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/recipes/${id}`, {
-        method: 'DELETE',
-      });
-
-      if (!res.ok) throw new Error('Failed to delete recipe');
-
-      // After delete, go back to recipe list
+      const res = await axios.delete(`http://localhost:3000/recipes/${id}`);
+      // If success
       navigate('/recipes');
     } catch (error) {
       console.error(error);
@@ -51,9 +47,7 @@ const Recipedetails = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <Link to="/recipes" className="text-black mb-4 inline-block">
-        Back
-      </Link>
+      <Link to="/recipes" className="text-black mb-4 inline-block">Back</Link>
 
       <div className="flex justify-end gap-3 mb-4">
         <button onClick={handleEdit} className="px-4 py-2 border hover:text-gray-400 rounded text-black" >Edit</button>
